@@ -15,11 +15,11 @@
 import eventBus from "@/components/eventBus.js";
 export default {
   props: {
-    // 商品id
-    id: {
-      required: true,
-      type: Number,
-    },
+    // // 商品id
+    // id: {
+    //   required: true,
+    //   type: Number,
+    // },
     // 商品购买数量
     num: {
       type: Number,
@@ -29,16 +29,18 @@ export default {
   methods: {
     // 点击按钮，数值+1
     add() {
-      const obj = { id: this.id, value: this.num + 1 };
-      // 通过eventBus把obj对象发送给App.vue组件
-      eventBus.$emit("share", obj);
+      // const obj = { id: this.id, value: this.num + 1 };
+      // // 通过eventBus把obj对象发送给App.vue组件
+      // eventBus.$emit("share", obj);
+      this.$emit("addCount", this.num + 1);
     },
     // 点击按钮，数值-1
     sub() {
       if (this.num > 1) {
-        const obj = { id: this.id, value: this.num - 1 };
-        // 通过eventBus把obj对象发送给App.vue组件
-        eventBus.$emit("share", obj);
+        // const obj = { id: this.id, value: this.num - 1 };
+        // // 通过eventBus把obj对象发送给App.vue组件
+        // eventBus.$emit("share", obj);
+        this.$emit("subCount", this.num - 1);
       }
     },
   },

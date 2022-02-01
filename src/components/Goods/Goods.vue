@@ -25,7 +25,7 @@
         <!-- 商品价格 -->
         <span class="goods-price">￥{{ price }}</span>
         <!-- 商品的数量 -->
-        <Count :id="id" :num="count"></Count>
+        <slot></slot>
       </div>
     </div>
   </div>
@@ -65,11 +65,11 @@ export default {
       default: true,
       type: Boolean,
     },
-    // 选择商品的数量
-    count: {
-      default: 0,
-      type: Number,
-    },
+    // // 选择商品的数量
+    // count: {
+    //   default: 0,
+    //   type: Number,
+    // },
   },
   methods: {
     // 单个商品的选中状态改变

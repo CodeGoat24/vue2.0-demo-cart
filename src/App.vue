@@ -12,9 +12,15 @@
       :price="item.goods_price"
       :state="item.goods_state"
       :id="item.id"
-      :count="item.goods_count"
       @state-change="getNewState"
-    ></Goods>
+    >
+      <!-- 使用slot插槽优化，直接父子传值，不用再兄弟之间传值了 -->
+      <counter
+        :num="item.goods_count"
+        @addCount="changeCount(item, $event)"
+        @subCount="changeCount(item, $event)"
+      ></counter>
+    </Goods>
 
     <!-- Footer区域 -->
     <Footer
@@ -33,7 +39,7 @@ import axios from "axios";
 import Header from "@/components/Header/Header.vue";
 import Goods from "@/components//Goods/Goods.vue";
 import Footer from "@/components/Footer/Footer.vue";
-
+import Counter from "@/components/Counter/Counter.vue";
 import eventBus from "@/components/eventBus.js";
 
 export default {
@@ -67,19 +73,20 @@ export default {
     Header,
     Goods,
     Footer,
+    Counter,
   },
   created() {
     // 调用请求数据的方法
     this.initCartList();
     // 监听商品购买数量的改变
-    eventBus.$on("share", (val) => {
-      this.list.some((item) => {
-        if (item.id === val.id) {
-          item.goods_count = val.value;
-          return true;
-        }
-      });
-    });
+    // eventBus.$on("share", (val) => {
+    //   this.list.some((item) => {
+    //     if (item.id === val.id) {
+    //       item.goods_count = val.value;
+    //       return true;
+    //     }
+    //   });
+    // });
   },
   methods: {
     // 封装请求列表数据的方法
@@ -104,6 +111,9 @@ export default {
       this.list.forEach((item) => {
         item.goods_state = e.value;
       });
+    },
+    changeCount(item, e) {
+      item.goods_count = e;
     },
   },
 };
